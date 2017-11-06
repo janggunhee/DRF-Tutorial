@@ -5,11 +5,15 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
-from .models import Snippet
-from snippets.serializers import SnippetSerializer
+from ..models import Snippet
+from ..serializers import SnippetSerializer
+
+__all__ = (
+    'snippet_list',
+    'snippet_detail',
+)
 
 """
 snippets/urls.py에 urlpatterns작성
