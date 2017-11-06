@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
+from ..models import Snippet
+from ..serializers import SnippetSerializer
 
 
 class SnippetList(APIView):
