@@ -9,6 +9,9 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', SnippetDetail.as_view(), name='snippet_detail'),
     url(r'^users/$', UserList.as_view()),
     url(r'^users/(?P<pk>\d+)/$', UserDetail.as_view()),
+
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
 ]
 
 
