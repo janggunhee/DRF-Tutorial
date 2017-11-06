@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
 
+from ..permissions import IsOwnerOrReadOnly
 from ..models import Snippet
 from ..serializers import SnippetSerializer, UserSerializer
 
@@ -29,7 +30,9 @@ class SnippetList(APIView):
 
 
 class SnippetDetail(APIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly,
+                          )
 
     def get_object(self, pk):
         try:
