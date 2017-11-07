@@ -23,12 +23,22 @@ class Snippet(models.Model):
     class Meta:
         ordering = ('created',)
 
-
-def save(self, *args, **kwargs):
-    lexer = get_lexer_by_name(self.language)
-    linenos = self.linenos and 'table' or False
-    options = self.title and {'title': self.title} or {}
-    formatter = HtmlFormatter(style=self.style, linenos=linenos,
-                              full=True, **options)
-    self.highlighted = highlight(self.code, lexer, formatter)
-    super(Snippet, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        #self.language에 해당하는 이름의 lexer를 지정
+        """
+        `pygments` 라이브러리를 사용하여 하이라이트된 코드를 만든다.
+        """
+        lexer = get_lexer_by_name(self.language)
+        # self.linenos가 True일 경우 'table', 아니면 False를 linenos에 할당
+        linenos = self.linenos and 'table' or False
+        # linenos = 'table' if self.linenos else False
+        # self.title이 존재할 경우 {'title': self.title} dict를 아니면 {}dict를 options에 할당
+        options = self.title and {'title': self.title} or {}
+        # options = {'title': self.title} if self.title else {}
+        # pygments 의 HtmlFormatter 인스턴스를 생성
+        formatter = HtmlFormatter(style=self.style, linenos=linenos,
+                                  full=True, **options)
+        # self.highlighted 필드에 highlihgt함수에 self.code를 지정한 결과값을 대입
+        self.highlighted = highlight(self.code, lexer, formatter)
+        # 이후 원래 진행되던 save()메서드 호출
+        super(Snippet, self).save(*args, **kwargs)
