@@ -1,6 +1,7 @@
 from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
 
-from ..views.cbv_mixins import SnippetList, SnippetDetail
+from ..views.cbv_generics import SnippetList, SnippetDetail
 
 
 urlpatterns = [
@@ -8,4 +9,6 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', SnippetDetail.as_view(), name='snippet_detail'),
 
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
 

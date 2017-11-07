@@ -9,12 +9,12 @@ class SnippetSerializer(serializers.ModelSerializer):
         model = Snippet
         fields = (
             'id',
+            'owner',
             'title',
             'code',
             'linenos',
             'language',
             'style',
-            'owner',
         )
 
 class UserSerializer(serializers.ModelSerializer):
